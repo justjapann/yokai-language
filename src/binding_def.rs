@@ -1,5 +1,6 @@
 use crate::expr::Expr;
 use crate::utils;
+use crate::env::Env;
 
 
 #[derive(Debug, PartialEq)]
@@ -28,7 +29,13 @@ impl BindingDef {
                 val,
             },
         )
+        
     }
+
+    pub(crate) fn eval(&self, env: &mut Env) {
+        env.store_binding(self.name.clone(), self.val.eval());
+    }
+
 }
 
 
